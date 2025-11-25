@@ -273,6 +273,10 @@
     "type": "blockbook",
     "url": ["https://etc1.trezor.io", "https://etc2.trezor.io"]
   },
+  "eth:QUAI:9": {
+    "type": "rpc",
+    "url": ["https://rpc.quai.network/cyprus1"]
+  },
   "eth:POL:137": {
     "type": "blockbook",
     "url": ["https://pol1.trezor.io", "https://pol2.trezor.io", "https://pol3.trezor.io", "https://pol4.trezor.io"]

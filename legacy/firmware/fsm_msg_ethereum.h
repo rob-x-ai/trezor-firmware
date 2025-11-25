@@ -133,6 +133,14 @@ void fsm_msgEthereumSignTx(const EthereumSignTx *msg) {
       get_definitions(msg->has_definitions, &msg->definitions, msg->chain_id,
                       msg->has_to ? msg->to : NULL);
 
+  // Guard: Quai (chain_id 9) uses protobuf signing; legacy ETH path must not sign it.
+  if (defs && defs->network && defs->network->chain_id == 9) {
+    fsm_sendFailure(FailureType_Failure_DataError,
+                    _("Unsupported Quai transaction on legacy firmware"));
+    layoutHome();
+    return;
+  }
+
   if (!defs || !fsm_ethereumCheckPath(msg->address_n_count, msg->address_n,
                                       false, defs->network)) {
     layoutHome();
@@ -154,6 +162,14 @@ void fsm_msgEthereumSignTxEIP1559(const EthereumSignTxEIP1559 *msg) {
   const EthereumDefinitionsDecoded *defs =
       get_definitions(msg->has_definitions, &msg->definitions, msg->chain_id,
                       msg->has_to ? msg->to : NULL);
+
+  // Guard: Quai (chain_id 9) uses protobuf signing; legacy ETH path must not sign it.
+  if (defs && defs->network && defs->network->chain_id == 9) {
+    fsm_sendFailure(FailureType_Failure_DataError,
+                    _("Unsupported Quai transaction on legacy firmware"));
+    layoutHome();
+    return;
+  }
 
   if (!defs || !fsm_ethereumCheckPath(msg->address_n_count, msg->address_n,
                                       false, defs->network)) {

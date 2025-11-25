@@ -98,7 +98,8 @@
       "nem:DIMTOK": "1.6.2",
       "nem:PAC:CHS": "1.6.2",
       "nem:PAC:HRT": "1.6.2",
-      "nem:XEM": "1.6.2"
+      "nem:XEM": "1.6.2",
+      "eth:QUAI:9": "1.14.0"
     },
     "unsupported": {
       "bitcoin:PART": "incompatible fork",
@@ -211,7 +212,8 @@
       "misc:XRP": "2.6.1",
       "misc:XTZ": "2.6.1",
       "misc:tADA": "2.6.1",
-      "misc:tXRP": "2.6.1"
+      "misc:tXRP": "2.6.1",
+      "eth:QUAI:9": "2.9.6"
     },
     "unsupported": {
       "bitcoin:BTG": "not for T2B1 (#2793)",
@@ -346,7 +348,8 @@
       "nem:DIMTOK": "2.0.7",
       "nem:PAC:CHS": "2.0.7",
       "nem:PAC:HRT": "2.0.7",
-      "nem:XEM": "2.0.7"
+      "nem:XEM": "2.0.7",
+      "eth:QUAI:9": "2.9.6"
     },
     "unsupported": {
       "bitcoin:PART": "incompatible fork",
@@ -449,7 +452,8 @@
       "misc:XRP": "2.8.1",
       "misc:XTZ": "2.8.1",
       "misc:tADA": "2.8.1",
-      "misc:tXRP": "2.8.1"
+      "misc:tXRP": "2.8.1",
+      "eth:QUAI:9": "2.9.6"
     },
     "unsupported": {
       "bitcoin:BTG": "not for T3B1 (#2793)",
@@ -568,7 +572,8 @@
       "misc:XRP": "2.6.1",
       "misc:XTZ": "2.6.1",
       "misc:tADA": "2.6.1",
-      "misc:tXRP": "2.6.1"
+      "misc:tXRP": "2.6.1",
+      "eth:QUAI:9": "2.9.6"
     },
     "unsupported": {
       "bitcoin:BTG": "not for T3T1 (#2793)",
@@ -687,7 +692,8 @@
       "misc:XRP": "2.6.1",
       "misc:XTZ": "2.6.1",
       "misc:tADA": "2.6.1",
-      "misc:tXRP": "2.6.1"
+      "misc:tXRP": "2.6.1",
+      "eth:QUAI:9": "2.9.6"
     },
     "unsupported": {
       "bitcoin:BTG": "not for T3W1 (#2793)",
@@ -713,7 +719,6 @@
       "eth:tHOL:17000": "Deprecated testnet"
     }
   },
-
   "D001": {
     "supported": {
       "bitcoin:ACM": "2.6.1",
@@ -807,7 +812,8 @@
       "misc:XRP": "2.6.1",
       "misc:XTZ": "2.6.1",
       "misc:tADA": "2.6.1",
-      "misc:tXRP": "2.6.1"
+      "misc:tXRP": "2.6.1",
+      "eth:QUAI:9": "2.9.6"
     },
     "unsupported": {
       "bitcoin:BTG": "not for T3W1 (#2793)",
@@ -833,7 +839,6 @@
       "eth:tHOL:17000": "Deprecated testnet"
     }
   },
-
   "D002": {
     "supported": {
       "bitcoin:ACM": "2.6.1",
@@ -927,7 +932,8 @@
       "misc:XRP": "2.6.1",
       "misc:XTZ": "2.6.1",
       "misc:tADA": "2.6.1",
-      "misc:tXRP": "2.6.1"
+      "misc:tXRP": "2.6.1",
+      "eth:QUAI:9": "2.9.6"
     },
     "unsupported": {
       "bitcoin:BTG": "not for T3W1 (#2793)",

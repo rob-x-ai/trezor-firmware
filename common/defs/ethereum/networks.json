@@ -95,5 +95,15 @@
         "shortcut": "OP",
         "symbol": "ETH",
         "slip44": 614
+    },
+    {
+        "chain": "quai",
+        "chain_id": 9,
+        "coingecko_id": "quai-network",
+        "is_testnet": false,
+        "name": "Quai Network",
+        "shortcut": "QUAI",
+        "symbol": "QUAI",
+        "slip44": 994
     }
 ]

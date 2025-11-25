@@ -41,6 +41,13 @@ async def sign_tx(
     keychain: Keychain,
     defs: Definitions,
 ) -> EthereumTxRequest:
+    # If this is Quai (chain_id 9), refuse to process via ETH RLP path.
+    # A dedicated Quai protobuf signer must handle this.
+    if defs.network.chain_id == 9:
+        from apps.quai.sign_tx import sign_quai_tx
+
+        return await sign_quai_tx(msg, keychain, defs)
+
     from trezor import TR
     from trezor.crypto.hashlib import sha3_256
     from trezor.ui.layouts import show_continue_in_app
