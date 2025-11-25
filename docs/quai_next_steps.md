@@ -1,11 +1,11 @@
 # Quai integration — remaining work
 
 ## Device (firmware)
-- **Golden vectors**: add a reproducible test that signs a known protobuf tx with a fixed test key/path, asserting digest and signature. Needs a test keypair + protobuf fixture.
-- **Access list UI**: optionally render per-tuple detail (address + first N storage keys) instead of summary only.
+- **Golden vectors**: added a basic golden digest/signature test (tests/test_quai_parser.py) using test privkey `11..11`. Consider adding more cases or a second vector.
+- **Access list UI**: currently shows a summary; optionally render per-tuple detail (address + first N storage keys).
 - **Hash preview UX**: refine formatting per product design (length, placement).
 - **Bounds**: review/align access list/data limits with final firmware constraints.
-- **Legacy**: if legacy signing is needed, implement a Quai protobuf signer; currently guarded/rejected.
+- **Legacy**: legacy path currently rejects chain_id 9; implement a legacy Quai protobuf signer only if needed.
 
 ## Host (Suite/Connect)
 - Build Quai protobuf transactions (quais.js or equivalent), not RLP.
@@ -15,8 +15,7 @@
 
 ## Tests
 - Parser negatives beyond current cases; malformed access lists, oversized fields.
-- End-to-end signing vector once test key + tx fixture are available.
+- Additional end-to-end signing vectors if new fixtures are added.
 
 ## Data/fixtures needed
-- Canonical protobuf tx payload for chain_id 9 with expected digest/signature.
-- Fixed derivation path and test seed/key to derive the signing key consistently.
+- Additional canonical protobuf tx payloads/signatures if more golden tests are desired. Current test uses privkey `11..11` and chain_id 9.
