@@ -229,7 +229,7 @@ def _decode_access_list(
                 if tfield == 1:
                     address = val
                 elif tfield == 2:
-                    storage_keys.append(val)
+                    storage_keys.append(_decode_protohash_value(val))
             else:
                 raise ValueError("Unsupported wire type in access tuple")
 
@@ -245,6 +245,52 @@ def _decode_access_list(
             raise ValueError("Too many access tuples")
 
     return tuples
+
+
+def _decode_protohash_value(raw: bytes) -> bytes:
+    """
+    Decode ProtoHash { bytes value = 1; }.
+    Accepts raw bytes for backward compatibility.
+    """
+    if not raw:
+        return b""
+
+    # Try to parse as a length-delimited message with field 1.
+    idx = 0
+    try:
+        key, idx = _read_varint_inner(raw, idx)
+    except ValueError:
+        return raw  # fallback to raw
+    field_num = key >> 3
+    wire_type = key & 0x07
+    if field_num != 1 or wire_type != 2:
+        return raw  # fallback to raw
+    val, idx = _read_len_inner(raw, idx)
+    return val
+
+
+def _read_varint_inner(buf: bytes, idx: int) -> tuple[int, int]:
+    shift = 0
+    result = 0
+    while True:
+        if idx >= len(buf):
+            raise ValueError("Unexpected end of buffer while reading varint")
+        b = buf[idx]
+        idx += 1
+        result |= (b & 0x7F) << shift
+        if not (b & 0x80):
+            return result, idx
+        shift += 7
+        if shift > 63:
+            raise ValueError("Varint too long")
+
+
+def _read_len_inner(buf: bytes, idx: int) -> tuple[bytes, int]:
+    length, idx = _read_varint_inner(buf, idx)
+    end = idx + length
+    if end > len(buf):
+        raise ValueError("Length-delimited field exceeds buffer")
+    return buf[idx:end], end
 
 
 def is_valid_quai_address(addr: bytes) -> bool:

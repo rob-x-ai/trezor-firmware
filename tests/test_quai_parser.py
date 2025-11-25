@@ -100,13 +100,15 @@ def test_parse_reject_signature_fields():
 def test_access_list_decode():
     """
     Build access_list:
-      AccessTuples[0]: address=0x0000.., storage_key=[0xaa,0xbb]
+      AccessTuples[0]: address=0x0000.., storage_key=[0xaa,0xbb] (ProtoHash wrappers)
     """
+    protohash_a = field(1, 2, b"\xaa")
+    protohash_b = field(1, 2, b"\xbb")
     tuple_bytes = b"".join(
         [
             field(1, 2, b"\x00" * 20),  # address
-            field(2, 2, b"\xaa"),  # storage_key repeated
-            field(2, 2, b"\xbb"),
+            field(2, 2, protohash_a),  # storage_key repeated
+            field(2, 2, protohash_b),
         ]
     )
     access_list_raw = field(1, 2, tuple_bytes)  # AccessTuples repeated
@@ -132,9 +134,10 @@ def test_access_list_decode():
 
 
 def test_access_list_too_many_keys():
+    protohash_zero = field(1, 2, b"\x00")
     tuple_bytes = b"".join(
         [field(1, 2, b"\x00" * 20)]
-        + [field(2, 2, b"\x00")] * 70  # exceed limit 64
+        + [field(2, 2, protohash_zero)] * 70  # exceed limit 64
     )
     access_list_raw = field(1, 2, tuple_bytes)
     payload = b"".join(
