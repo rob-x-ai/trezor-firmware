@@ -151,3 +151,40 @@ def test_access_list_too_many_keys():
     )
     with pytest.raises(ValueError):
         parse_protobuf_tx(payload)
+
+
+def test_golden_digest_and_signature():
+    """Golden vector: known payload, hash, and signature with test key."""
+    pytest.importorskip("eth_keys")
+    from hashlib import sha3_256
+    from eth_keys import keys
+
+    # Throwaway test key (hex '11' * 32)
+    privkey_hex = "1" * 64
+    priv_key_obj = keys.PrivateKey(bytes.fromhex(privkey_hex))
+
+    payload_hex = (
+        "08001214000011111111111111111111111111111111111118002201012888a40132003a010942043b9aca00"
+    )
+    payload = bytes.fromhex(payload_hex)
+
+    # Parse to ensure fields are valid
+    tx = parse_protobuf_tx(payload)
+    assert tx.chain_id == 9
+    assert tx.value == 1
+    assert tx.gas == 21000
+    assert tx.gas_price == 1_000_000_000
+    assert tx.nonce == 0
+    assert tx.to == b"\x00\x00" + b"\x11" * 18
+
+    digest = sha3_256(payload).digest()
+    assert digest.hex() == "e3b01f163fb6b8a056f4c3c835fd9fd2837f5d45f0a9acd77a3b53059b018fef"
+
+    signature = priv_key_obj.sign_msg_hash(digest)
+    assert signature.v == 0
+    assert signature.r == int(
+        "2ad8221eaf21b6d7bcb6c40ee5d29602233444a30d91a08d0d0bf55e21300c11", 16
+    )
+    assert signature.s == int(
+        "4d828b5a0acc12327d09ab87f364a10ab31eeb03f76f80580f6f9a14c3a0f125", 16
+    )
